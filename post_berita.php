@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
 
     if ($stmt->affected_rows === 1) {
-        header("Location: index.html"); // Redirect to the news page
+        header("Location: tambahberita.php"); // Redirect to the news page
     } else {
         echo "Error adding news.";
     }

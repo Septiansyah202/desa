@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a class="nav-link" href="index_admin.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#struktur">Struktur Desa</a>
@@ -30,7 +30,7 @@
                         <a class="nav-link" href="#visi-misi">Visi & Misi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="berita.php">Berita</a>
+                        <a class="nav-link" href="tambahberita.php">Berita</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php">Logout</a>

@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $stmt->execute();
 
     if ($stmt->affected_rows === 1) {
-        header("Location: index.html"); // Redirect back to the news page
+        header("Location: tambahberita.php"); // Redirect back to the news page
     } else {
         echo "Error deleting news.";
     }
