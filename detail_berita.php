@@ -5,26 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Berita</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css"> <!-- Link ke file CSS eksternal -->
     <style>
-        .card {
-            max-width: 500px; /* Mengatur lebar maksimum kartu */
-            margin: auto; /* Pusatkan kartu */
+        /* Gaya umum */
+        .news-image, video {
+            max-width: 100%;
+            height: auto;
         }
-        .card-img-top {
-            height: 200px; /* Tinggi gambar tetap */
-            object-fit: cover; /* Pastikan gambar menutupi area tanpa distorsi */
-            margin-top: 20px; /* Tambahkan margin atas */
+
+        /* Gaya untuk laptop dan desktop */
+        @media (min-width: 992px) {
+            .container {
+                max-width: 800px; /* Lebar maksimal untuk konten pada desktop */
+            }
+            .news-title {
+                font-size: 2rem; /* Ukuran font lebih besar untuk judul */
+            }
+            .news-content {
+                font-size: 1.2rem; /* Ukuran font lebih besar untuk konten */
+            }
         }
-        .card-body {
-            padding: 10px; /* Padding lebih kecil untuk tampilan yang lebih ringkas */
-        }
-        .news-title {
-            font-weight: bold; /* Membuat teks judul tebal */
+
+        /* Gaya untuk handphone */
+        @media (max-width: 991px) {
+            .container {
+                padding: 10px; /* Padding lebih kecil untuk handphone */
+            }
+            .news-title {
+                font-size: 1.5rem; /* Ukuran font lebih kecil untuk judul */
+            }
+            .news-content {
+                font-size: 1rem; /* Ukuran font standar untuk konten */
+            }
         }
     </style>
 </head>
 <body>
-<div class="container mt-4">
+    <div class="container mt-4">
     <?php
     include 'koneksi.php'; // Include your database connection
 
@@ -37,18 +54,17 @@
     $stmt->execute();
     $result = $stmt->get_result();
     if ($row = $result->fetch_assoc()) {
-        echo "<h1>" . htmlspecialchars($row['title']) . "</h1>";
+        echo "<h1 class='news-title'>" . htmlspecialchars($row['title']) . "</h1>";
         if (!empty($row['image_path'])) {
-            echo "<img src='" . htmlspecialchars($row['image_path']) . "' alt='News Image' style='max-width:100%;height:auto;'>";
+            echo "<img src='" . htmlspecialchars($row['image_path']) . "' alt='News Image' class='news-image'>";
         }
-        echo "<p>" . nl2br(htmlspecialchars($row['content'])) . "</p>";
+        echo "<p class='news-content'>" . nl2br(htmlspecialchars($row['content'])) . "</p>";
         if (!empty($row['video_path'])) {
-            echo "<video controls style='max-width:100%;height:auto;'>
+            echo "<video controls class='news-video'>
                     <source src='" . htmlspecialchars($row['video_path']) . "' type='video/mp4'>
                     Your browser does not support the video tag.
                   </video>";
         }
-        // Add a Back button
         echo "<button onclick='history.back()' class='btn btn-secondary mt-3'>Kembali</button>";
     } else {
         echo "News item not found.";
