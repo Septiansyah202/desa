@@ -109,9 +109,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add News - Admin</title>
-    <!-- Bootstrap CSS -->
+    <title>News - Desa Sumberjaya</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        .card-img-top {
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover; /* Cover fit for better appearance */
+        }
+        
+    </style>
 </head>
 <body>
 <header>
@@ -166,8 +176,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-    <div class="container">
-    <h1 class="my-4">News</h1>
+    <div class="container mt-4">
+    <h1 class="mb-4">Berita Terkini</h1>
     <?php
     include 'koneksi.php'; // Database connection
 
@@ -175,13 +185,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $conn->query("SELECT * FROM news ORDER BY created_at DESC");
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo "<div class='news-item my-3'>";
-            echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
-            echo "<p>" . nl2br(htmlspecialchars($row['content'])) . "</p>";
-            echo "<small>Published on: " . $row['created_at'] . "</small>";
-            // Admin delete link (visible only to admins)
-            echo "<p><a href='delete_news.php?id=" . $row['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this news item?\");'>Delete</a></p>";
-            echo "<hr>";
+            echo "<div class='card mb-3'>";
+            if (!empty($row['image_url'])) {
+                echo "<img src='" . htmlspecialchars($row['image_url']) . "' class='card-img-top'>";
+            }
+            echo "<div class='card-body'>";
+            echo "<h5 class='card-title'>" . htmlspecialchars($row['title']) . "</h5>";
+            // Display only the first 150 characters of the content
+            $summary = substr(htmlspecialchars($row['content']), 0, 150) . '...';
+            echo "<p class='card-text'>" . nl2br($summary) . "</p>";
+            echo "<p class='card-text'><small class='text-muted'>Published on: " . $row['created_at'] . "</small></p>";
+            echo "<a href='detail_berita.php?id=" . $row['id'] . "' class='btn btn-primary'>Read More</a> ";
+            echo "<a href='delete_news.php?id=" . $row['id'] . "' class='btn btn-danger' onclick='return confirm(\"Apakah Anda yakin ingin menghapus berita ini?\");'>Hapus</a>";
+            echo "</div>";
             echo "</div>";
         }
     } else {
@@ -189,6 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     ?>
 </div>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

@@ -73,33 +73,7 @@
             </div>
         </section>
         
-        <section id="berita">
-            <h2 class="mb-4">Berita Terkini</h2>
-            <a href="admin_add_news.html" class="btn btn-primary mb-3">Add News</a>
-            <?php
-            include 'koneksi.php'; // Database connection
-
-            // Fetch news items from the database
-            $result = $conn->query("SELECT * FROM news ORDER BY created_at DESC");
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<div class='card mb-3'>";
-                    echo "<div class='card-body'>";
-                    echo "<h3 class='card-title'>" . htmlspecialchars($row['title']) . "</h3>";
-                    echo "<p class='card-text'>" . nl2br(htmlspecialchars($row['content'])) . "</p>";
-                    echo "<small>Published on: " . $row['created_at'] . "</small>";
-                    echo "<p>";
-                    echo "<a href='edit_news.php?id=" . $row['id'] . "' class='btn btn-warning'>Edit</a> ";
-                    echo "<a href='delete_news.php?id=" . $row['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this news item?\");'>Delete</a>";
-                    echo "</p>";
-                    echo "</div>";
-                    echo "</div>";
-                }
-            } else {
-                echo "<p>No news items found.</p>";
-            }
-            ?>
-        </section>
+        
     </main>
 
     <footer class="bg-success text-white text-center py-3">

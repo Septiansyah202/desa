@@ -1,3 +1,12 @@
+<?php
+session_start(); // Start the session
+
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    header('Location: index_admin.php'); // Redirect to admin dashboard
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#struktur">Struktur Desa</a>
@@ -74,23 +83,6 @@
             </div>
         </section>
         
-        <section id="berita">
-            <h2 class="mb-4">Berita Terkini</h2>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h3 class="card-title">Judul Berita 1</h3>
-                    <p class="card-text">Isi berita 1...</p>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h3 class="card-title">Judul Berita 2</h3>
-                    <p class="card-text">Isi berita 2...</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
     <footer class="bg-success text-white text-center py-3">
         <p>&copy; 2024 Desa Sumberjaya</p>
     </footer>
